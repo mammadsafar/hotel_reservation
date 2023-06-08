@@ -1,0 +1,366 @@
+{% extends '_base.html' %}
+{% load static %}
+
+
+{% block title %}هتل ها{% endblock %}
+
+
+{% block icon_style %}{% endblock %}
+{% block core_style %}{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="/static/assets/css/persian-datepicker.min.css"/>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <!-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4> -->
+            <div class="row">
+                <!-- Flat Picker -->
+                <div class="col-12 col-xs-12 row">
+
+
+                    <section>
+                        <div class="card mb-4">
+                            <h4 class="col-md-6 m-4">لیست هتل ها</h4>
+                            <div class="card-body row  pt-3 pb-2 px-4 d-flex justify-content-around">
+
+
+                                <div class="col-12 col-sm-2  col-lg-3 mb-4">
+                                    <select class="form-select" id="exampleFormControlSelect1"
+                                            aria-label="Default select example">
+                                        <option selected="">مقصد سفر</option>
+                                        {% for city in cities %}
+                                            <option value="{{ city.id }}">{{ city }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Range Picker-->
+                                <div class="col-12 col-sm-3  col-lg-3 mb-4">
+
+                                    <input type="text" id="bs-datepicker-basic" placeholder="از تاریخ"
+                                           class="form-control dateselector">
+                                </div>
+                                <div class="col-12 col-sm-3  col-lg-3 mb-4">
+                                    <input type="text" id="bs-datepicker-basic" placeholder="تا تاریخ"
+                                           class="form-control dateselector">
+                                </div>
+
+                                <!-- /Range Picker-->
+                                <div class="col-12 col-sm-2 col-lg-2 text-center">
+                                    <button type="button"
+                                            class="btn btn-primary waves-effect waves-light col-12 col-sm-12 col-md-12 ">
+                                        جست‌وجو
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row d-flex justify-content-around">
+                            <div class="card col-12 col-sm-12 col-md-3 mb-5 p-3">
+                                <div class="accordion-item active">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button type="button" class="accordion-button" data-bs-toggle="collapse"
+                                                data-bs-target="#accordionOne" aria-expanded="true"
+                                                aria-controls="accordionOne">
+                                            فیلتر ها
+                                        </button>
+                                    </h2>
+
+                                    <div id="accordionOne" class="accordion-collapse collapse d-md-none"
+                                         data-bs-parent="#accordionExample"
+                                         style="">
+                                        <div class="accordion-body">
+                                            <div class="col-12 mt-3 border-bottom pb-3">
+                                                <p>ستاره ها</p>
+                                                <div class="form-check mt-3">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1"> <label
+                                                        class="form-check-label" for="defaultCheck1"> ⭐⭐⭐⭐⭐ </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1"> <label
+                                                        class="form-check-label" for="defaultCheck1"> ⭐⭐⭐⭐ </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1"> <label
+                                                        class="form-check-label" for="defaultCheck1"> ⭐⭐⭐ </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1"> <label
+                                                        class="form-check-label" for="defaultCheck1"> ⭐⭐ </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="defaultCheck1"> <label
+                                                        class="form-check-label" for="defaultCheck1"> ⭐ </label>
+                                                </div>
+
+                                            </div>
+                                            <button type="button"
+                                                    class="btn rounded-pill btn-primary waves-effect waves-light mt-5">
+                                                فیلتر
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 row d-none d-md-block">
+                                    <div class="col-12 mt-3 border-bottom pb-3">
+                                        <p>ستاره ها</p>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label
+                                                    class="form-check-label" for="defaultCheck1"> ⭐⭐⭐⭐⭐ </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label
+                                                    class="form-check-label" for="defaultCheck1"> ⭐⭐⭐⭐ </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label
+                                                    class="form-check-label" for="defaultCheck1"> ⭐⭐⭐ </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label
+                                                    class="form-check-label" for="defaultCheck1"> ⭐⭐ </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label
+                                                    class="form-check-label" for="defaultCheck1"> ⭐ </label>
+                                        </div>
+                                    </div>
+                                    <button type="button"
+                                            class="btn rounded-pill btn-primary waves-effect waves-light mt-5">فیلتر
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-12 col-md-8">
+                                <div class="row row-cols-md-1 g-4 mb-5">
+                                    {% for hotel in hotels %}
+                                        <div class="col-md ">
+                                            <div class="card mb-3">
+                                                <div class="row g-0">
+                                                    <div class="col-md-3">
+                                                        <img class="card-img card-img-left rounded"
+                                                             src="/media/{{ hotel.cover }}"
+                                                             alt="Card image">
+                                                    </div>
+                                                    <div class="col-md-9 row">
+
+                                                        <div class="col-12 col-sm-3 card-body ">
+                                                            <h5 class="card-title">{{ hotel.name }}</h5>
+                                                            <div class="read-only-ratings jq-ry-container">
+                                                               هتل {{ hotel.class_hotel }} ستاره
+{#                                                                {% for i in hotel.class_hotel | int %}#}
+{#                                                                    ⭐#}
+{#                                                                {% endfor %}#}
+                                                            </div>
+                                                            <p class="card-text">
+                                                                {{ hotel.address }}
+                                                            </p>
+                                                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                                        </div>
+                                                        <div class="col-12 col-sm-4 d-flex flex-column align-items-center p-3 border-left ">
+                                                            <div class="col text-center mt-0 mt-md-5 mb-3">
+                                                                قیمت از 1230000 تومان
+                                                            </div>
+                                                            <div class="col text-center mb-2">
+                                                                <button type="button"
+                                                                        class="btn btn-primary waves-effect waves-light">
+                                                                    انتخاب
+                                                                    اتاق
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <!-- <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/2.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/10.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/4.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/13.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/14.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/15.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/15.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <div class="card h-100">
+                                    <img class="card-img-top" src="../../assets/img/elements/15.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                      <p class="card-text">
+                                        This is a longer card with supporting text below as a natural lead-in to additional
+                                        content.
+                                        This content is a little bit longer.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div> -->
+                        </div>
+
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item prev">
+                                    <a class="page-link" href="javascript:void(0);"><i
+                                            class="ti ti-chevrons-right ti-xs"></i></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">2</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="javascript:void(0);">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0);">5</a>
+                                </li>
+                                <li class="page-item next">
+                                    <a class="page-link" href="javascript:void(0);"><i
+                                            class="ti ti-chevrons-left ti-xs"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block build_script %}{% endblock %}
+{% block vendors_script %}{% endblock %}
+{% block main_script %}{% endblock %}
+{% block page_script %}
+
+    <script src="/static/assets/js/forms-pickers.js"></script>
+
+    <script src="/static/assets/js/persian-datepicker.min.js"></script>
+    <script src="/static/assets/js/persian-date.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dateselector").persianDatepicker({
+                observer: true,
+                format: 'YYYY-MM-DD',
+                altField: '.observer-example-alt',
+                initialValue: false
+
+
+            });
+        });
+    </script>
+{% endblock %}

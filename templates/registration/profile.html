@@ -1,0 +1,422 @@
+{% extends '_base.html' %}
+{% load static %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block icon_style %}{% endblock %}
+{% block core_style %}{% endblock %}
+{% block vendors_style %}{% endblock %}
+{% block style %}{% endblock %}
+
+
+
+
+{% block content %}
+
+    <!-- ! Content -->
+    <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <!-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4> -->
+            <div class="row">
+                <!-- Flat Picker -->
+                <div class="col-12 col-xs-12 row">
+
+
+                    <section class="row d-flex justify-content-around">
+                        <div class="card col-12 col-sm-12 col-md-3">
+                            <div class="card-body">
+                                <small class="card-text text-uppercase">مشخصات من</small>
+                                <ul class="list-unstyled mb-4 mt-3">
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-user"></i><span class="fw-bold mx-2">نام:</span>
+                                        <span>
+                                            {% if user.first_name %}
+                                                {{ user.first_name }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-check"></i><span class="fw-bold mx-2">نام خانوادگی:</span>
+                                        <span>
+                                            {% if user.last_name %}
+                                                {{ user.last_name }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-crown"></i><span class="fw-bold mx-2">ایمیل:</span>
+                                        <span>
+                                            {% if user.email %}
+                                                {{ user.email }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-flag"></i><span class="fw-bold mx-2">جنسیت:</span>
+                                        <span>
+
+                                            {% if user.gender %}
+                                                {{ user.gender }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+
+                                        </span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-file-description"></i><span
+                                            class="fw-bold mx-2">تاریخ تولد:</span>
+                                        <span>
+                                            {% if user.date_of_birth %}
+                                                {{ user.date_of_birth }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <!-- Vertically Centered Modal -->
+                                        <div class="col-lg-12 col-md-12 d-flex justify-content-center">
+                                            <div class="mt-3">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#modalCenter">
+                                                    ویرایش اطلاعات
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modalCenter" tabindex="-1"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <form action="" method="post">
+                                                            {% csrf_token %}
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalCenterTitle">ویرایش
+                                                                        اطلاعات</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col mb-3">
+                                                                            <label for="nameWithTitle"
+                                                                                   class="form-label">نام</label>
+                                                                            {{ form.first_name }}
+                                                                        </div>
+                                                                        <div class="col mb-3">
+                                                                            <label for="nameWithTitle"
+                                                                                   class="form-label">نام
+                                                                                خانوادگی</label>
+                                                                           {{ form.last_name }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row g-2">
+                                                                        <div class="col mb-0">
+                                                                            <label for="emailWithTitle"
+                                                                                   class="form-label">جنسیت</label>
+                                                                            {{ form.gender }}
+                                                                        <div class="col mb-0">
+                                                                            <label for="dobWithTitle"
+                                                                                   class="form-label">تاریخ
+                                                                                تولد</label>
+                                                                            {{ form.date_of_birth }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row g-2">
+                                                                        <div class="col mb-0">
+                                                                            <label for="emailWithTitle"
+                                                                                   class="form-label">ایمیل</label>
+                                                                            {{ form.email }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-label-secondary"
+                                                                            data-bs-dismiss="modal">
+                                                                        انصراف
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary">ذخیره
+                                                                    </button>
+                                                                </div>
+
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-8">
+
+                            <div class="col">
+                                <div class="demo-inline-spacing mt-3">
+                                    <div class="list-group list-group-horizontal-md text-md-center">
+                                        <a class="list-group-item list-group-item-action active" id="home-list-item"
+                                           data-bs-toggle="list" href="#horizontal-home">رزروهای من</a>
+                                        <a class="list-group-item list-group-item-action" id="profile-list-item"
+                                           data-bs-toggle="list" href="#horizontal-profile">ویرایش گذرواژه</a>
+                                    </div>
+                                    <div class="tab-content px-0 mt-0">
+                                        <div class="tab-pane fade show active" id="horizontal-home">
+                                            <div class="card">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table">
+                                                        <caption class="ms-4">
+                                                            رزروهای من
+                                                        </caption>
+                                                        <thead>
+                                                        <tr>
+                                                            <th>هتل</th>
+                                                            <th>شهر</th>
+                                                            <th>تعداد افراد</th>
+                                                            <th>از تاریخ</th>
+                                                            <th>تا تاریخ</th>
+                                                            <th>وضعیت</th>
+                                                            <th>گزینه ها</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>هتل الماش مشهد</strong>
+                                                            </td>
+                                                            <td>مشهد</td>
+                                                            <td>
+                                                                5
+                                                            </td>
+                                                            <td>
+                                                                1400/12/03
+                                                            </td>
+                                                            <td>
+                                                                1401/01/13
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge bg-label-primary me-1">رزرو شده</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button type="button"
+                                                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                                                            data-bs-toggle="dropdown">
+                                                                        <i class="ti ti-dots-vertical"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-pencil me-1"></i> دیدن
+                                                                            جزییات</a>
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-trash me-1"></i> کنسل/a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>هتل الماش مشهد</strong>
+                                                            </td>
+                                                            <td>مشهد</td>
+                                                            <td>
+                                                                5
+                                                            </td>
+                                                            <td>
+                                                                1400/12/03
+                                                            </td>
+                                                            <td>
+                                                                1401/01/13
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge bg-label-primary me-1">رزرو شده</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button type="button"
+                                                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                                                            data-bs-toggle="dropdown">
+                                                                        <i class="ti ti-dots-vertical"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-pencil me-1"></i> دیدن
+                                                                            جزییات</a>
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-trash me-1"></i> کنسل/a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>هتل الماش مشهد</strong>
+                                                            </td>
+                                                            <td>مشهد</td>
+                                                            <td>
+                                                                5
+                                                            </td>
+                                                            <td>
+                                                                1400/12/03
+                                                            </td>
+                                                            <td>
+                                                                1401/01/13
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge bg-label-primary me-1">رزرو شده</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button type="button"
+                                                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                                                            data-bs-toggle="dropdown">
+                                                                        <i class="ti ti-dots-vertical"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-pencil me-1"></i> دیدن
+                                                                            جزییات</a>
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-trash me-1"></i>کنسل</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>هتل الماش مشهد</strong>
+                                                            </td>
+                                                            <td>مشهد</td>
+                                                            <td>
+                                                                5
+                                                            </td>
+                                                            <td>
+                                                                1400/12/03
+                                                            </td>
+                                                            <td>
+                                                                1401/01/13
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge bg-label-primary me-1">رزرو شده</span>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button type="button"
+                                                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                                                            data-bs-toggle="dropdown">
+                                                                        <i class="ti ti-dots-vertical"></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-pencil me-1"></i> دیدن
+                                                                            جزییات</a>
+                                                                        <a class="dropdown-item"
+                                                                           href="javascript:void(0);"><i
+                                                                                class="ti ti-trash me-1"></i> کنسل/a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="horizontal-profile">
+                                            <div class="card p-5">
+                                                <div class="card mb-4">
+                                                    <h5 class="card-header">ویرایش گذرواژه</h5>
+                                                    <div class="card-body demo-vertical-spacing demo-only-element">
+
+                                                        <div class="form-password-toggle">
+                                                            <label class="form-label" for="basic-default-password12">آخرین
+                                                                گذرواژه</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control"
+                                                                       id="basic-default-password12"
+                                                                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                       aria-describedby="basic-default-password2"/>
+                                                                <span id="basic-default-password2"
+                                                                      class="input-group-text cursor-pointer"><i
+                                                                        class="ti ti-eye-off"></i></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-password-toggle">
+                                                            <label class="form-label" for="basic-default-password12">گذرواژه
+                                                                جدید</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control"
+                                                                       id="basic-default-password12"
+                                                                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                       aria-describedby="basic-default-password2"/>
+                                                                <span id="basic-default-password2"
+                                                                      class="input-group-text cursor-pointer"><i
+                                                                        class="ti ti-eye-off"></i></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-password-toggle">
+                                                            <label class="form-label" for="basic-default-password12">گذرواژه
+                                                                مجدد</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control"
+                                                                       id="basic-default-password12"
+                                                                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                       aria-describedby="basic-default-password2"/>
+                                                                <span id="basic-default-password2"
+                                                                      class="input-group-text cursor-pointer"><i
+                                                                        class="ti ti-eye-off"></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn rounded-pill btn-primary waves-effect waves-light">
+                                                            ویرایش
+                                                        </button>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--!/ Content -->
+
+{% endblock %}
+
+
+
+
+{% block build_script %}{% endblock %}
+{% block vendors_script %}{% endblock %}
+{% block main_script %}{% endblock %}
+{% block page_script %}{% endblock %}

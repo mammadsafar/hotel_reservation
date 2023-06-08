@@ -1,0 +1,245 @@
+{% extends '_base.html' %}
+{% load book_tags %}
+{% load static %}
+
+{% block title %}
+    جزییات کتاب
+{% endblock %}
+
+
+{% block style %}
+    <!-- BEGIN: Page CSS-->
+
+
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/vendors/css/extensions/swiper.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/vendors/css/extensions/toastr.min.css' %}">
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/css-rtl/themes/bordered-layout.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/css-rtl/core/menu/menu-types/horizontal-menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/css-rtl/pages/app-ecommerce-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/css-rtl/plugins/forms/form-number-input.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/app-assets/css-rtl/plugins/extensions/ext-component-toastr.css' %}">
+
+    <!-- END: Page CSS-->
+{% endblock %}
+{% block content %}
+
+
+    <div class="app-content content ecommerce-application">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+
+            <div class="content-body">
+                <!-- app e-commerce details start -->
+                <section class="app-ecommerce-details">
+                    <div class="card">
+                        <!-- Product Details starts -->
+                        <div class="card-body">
+                            <div class="row my-2">
+                                <div class="col-12 col-md-5  mb-2 mb-md-0 mt-0">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a href="{{ book.get_absolute_url }}">
+                                            {% if book.cover %}
+                                                <img src="/media/{{ book.cover }}" class="img-fluid product-img" alt="product image"/>
+                                            {% else %}
+                                                <img src="/media/covers/cover.png" class="img-fluid product-img" alt="product image"/>
+                                            {% endif %}
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-7">
+                                    <h4>{{ book.title }}</h4>
+                                    <span class="card-text item-company">توسط <a href="#" class="company-name">{{ book.author }}</a></span>
+                                    <div class="ecommerce-details-price d-flex flex-wrap mt-1">
+                                        <h4 class="item-price me-1">${{ book.price }}</h4>
+                                        <ul class="unstyled-list list-inline ps-1 border-start">
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="filled-star"></i></li>
+                                            <li class="ratings-list-item"><i data-feather="star" class="unfilled-star"></i></li>
+                                        </ul>
+                                    </div>
+                                    <p class="card-text">ایجاد کننده : <span class="text-success">{{ book.user.username }}</span></p>
+                                    <p class="card-text">
+                                        {% autoescape off %}
+                                            {{ book.description|linebreaks }}
+                                        {% endautoescape %}
+                                    </p>
+                                    <ul class="product-features list-unstyled">
+                                        <li><i data-feather="shopping-cart"></i> <span>Free Shipping</span></li>
+                                        <li>
+                                            <i data-feather="dollar-sign"></i>
+                                            <span>EMI options available</span>
+                                        </li>
+                                    </ul>
+                                    <hr/>
+                                    <div class="product-color-options">
+                                        <h6>Colors</h6>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="d-inline-block selected">
+                                                <div class="color-option b-primary">
+                                                    <div class="filloption bg-primary"></div>
+                                                </div>
+                                            </li>
+                                            <li class="d-inline-block">
+                                                <div class="color-option b-success">
+                                                    <div class="filloption bg-success"></div>
+                                                </div>
+                                            </li>
+                                            <li class="d-inline-block">
+                                                <div class="color-option b-danger">
+                                                    <div class="filloption bg-danger"></div>
+                                                </div>
+                                            </li>
+                                            <li class="d-inline-block">
+                                                <div class="color-option b-warning">
+                                                    <div class="filloption bg-warning"></div>
+                                                </div>
+                                            </li>
+                                            <li class="d-inline-block">
+                                                <div class="color-option b-info">
+                                                    <div class="filloption bg-info"></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <hr/>
+                                    <div class="d-flex flex-column flex-sm-row pt-1">
+                                        <a href="#" class="btn btn-primary btn-cart me-0 me-sm-1 mb-1 mb-sm-0">
+                                            <i data-feather="shopping-cart" class="me-50"></i>
+                                            <span class="add-to-cart">افزودن به سبد خرید</span>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-secondary btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                            <i data-feather="heart" class="me-50"></i>
+                                            <span>افزودن به علاقه مندی ها</span>
+                                        </a>
+                                        {% if book.user == user %}
+
+                                        <a href="{% url 'book_update' book.id %}" class="btn btn-warning btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                            <i data-feather="edit" class="me-50"></i>
+                                            <span>ویرابش</span>
+                                        </a>
+                                        {% endif %}
+                                        {% if book.user == user %}
+
+                                        <a href="{% url 'book_delete' book.id %}" class="btn btn-danger btn-wishlist me-0 me-sm-1 mb-1 mb-sm-0">
+                                            <i data-feather="trash" class="me-50"></i>
+                                            <span>حذف</span>
+                                        </a>
+                                        {% endif %}
+
+
+
+
+                                        <div class="btn-group dropdown-icon-wrapper btn-share">
+                                            <button type="button" class="btn btn-icon hide-arrow btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i data-feather="share-2"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="#" class="dropdown-item">
+                                                    <i data-feather="facebook"></i>
+                                                </a>
+                                                <a href="#" class="dropdown-item">
+                                                    <i data-feather="twitter"></i>
+                                                </a>
+                                                <a href="#" class="dropdown-item">
+                                                    <i data-feather="youtube"></i>
+                                                </a>
+                                                <a href="#" class="dropdown-item">
+                                                    <i data-feather="instagram"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product Details ends -->
+
+
+                    </div>
+                </section>
+                <!-- app e-commerce details end -->
+
+                <!-- Blog Comment -->
+                <div class="col-12 mt-1" id="blogComment">
+                    <h6 class="section-label mt-25">نظرات</h6>
+                    <div class="card">
+                        <div class="card-body">
+                            {% for comment in comments %}
+                            <div class="d-flex align-items-start mt-2">
+                                <div class="avatar me-75">
+                                    <img src="/media/{{ comment.user.avatar }}" width="38" height="38" alt="Avatar"/>
+                                </div>
+                                <div class="author-info">
+                                    <h6 class="fw-bolder mb-25">{{ comment.user.username }}</h6>
+                                    <p class="card-text">{{ comment.created_at|date:'Y d M' }} |
+                                    {% if comment.recommended %}
+                                        <span class="text-success">این کتاب را توصیه میکنم</span>
+                                    {% else %}
+                                        <span class="text-danger">این کتاب را توصیه نمیکنم</span>
+                                    {% endif %}
+
+                                    </p>
+                                    <p class="card-text">
+                                       {{ comment.text }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!--/ Blog Comment -->
+
+                <!-- Leave a Blog Comment -->
+                <div class="col-12 mt-1 mb-4">
+                    <h6 class="section-label mt-25">نظر خود را وارد کنید </h6>
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" class="form" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="mb-1">
+                                            نظر شما:
+                                        </label>
+                                        {{ comment_form.text }}
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <div class="form-check mb-2">
+                                            <label class="form-check-label" for="blogCheckbox">آیا این کتاب را توصیه میکنید؟ </label>
+                                            {{ comment_form.recommended }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <button type="submit" class="btn btn-primary">ارسال</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Leave a Blog Comment -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static '/static/app-assets/vendors/js/extensions/wNumb.min.js' %}"></script>
+    <script src="{% static '/static/app-assets/vendors/js/extensions/swiper.min.js' %}"></script>
+    <script src="{% static '/static/app-assets/vendors/js/extensions/toastr.min.js' %}"></script>
+    <!-- BEGIN: Page JS-->
+    <script src="{% static '/static/app-assets/js/scripts/pages/app-ecommerce-details.js' %}"></script>
+    <script src="{% static '/static/app-assets/js/scripts/forms/form-number-input.js' %}"></script>
+    <!-- END: Page JS-->
+{% endblock %}
