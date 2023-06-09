@@ -28,9 +28,9 @@
             height: 450px; ">
                         <div class="row">
 
-                            <form
-                                  class="card d-flex flex-lg-row flex-column justify-content-around pb-5 pt-5">
-                                
+                            <div
+                                    class="card d-flex flex-lg-row flex-column justify-content-around pb-5 pt-5">
+
                                 <div class="col-12 col-sm-12  col-lg-3 mb-4">
                                     <select class="form-select" id="location"
                                             aria-label="Default select example" name="location">
@@ -53,7 +53,7 @@
                                     />
                                 </div>
                                 <!-- /Range Picker-->
-                                <button type="submit" id="hotel_btn"
+                                <button type="button" id="hotel_btn"
                                         class="col-12 col-sm-12 col-lg-1 btn btn-primary waves-effect waves-light">
                                     جست‌وجو
                                 </button>
@@ -61,7 +61,7 @@
                                 <!-- </div> -->
 
 
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -151,17 +151,16 @@
         });
     </script>
     <script type="text/javascript">
-        $(document).ready(function() {
-  $('#hotel_btn').click(function() {
-    var selectBoxValue = $('#location').val();
-    var date1Value = $('#dateIn').val();
-    var date2Value = $('#dateOut').val();
-    var url = 'home?location=' + selectBoxValue + '&start_date=' + date1Value + '&end_date=' + date2Value;
-    $.get(url, function(data) {
-      window.location.href = '{% url 'hotels' %}?' + url;
-    });
-  });
-});
+        $(document).ready(function () {
+            $('#hotel_btn').click(function () {
+                let selectBoxValue = $('#location').val();
+                let date1Value = $('#dateIn').val();
+                let date2Value = $('#dateOut').val();
+                let url = '?location=' + selectBoxValue + '&start_date=' + date1Value + '&end_date=' + date2Value;
+                window.location.href = '{% url 'hotels' %}' + url;
+
+            });
+        });
     </script>
 {% endblock %}
 

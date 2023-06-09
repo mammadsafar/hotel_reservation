@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="/static/assets/vendor/libs/rateyo/rateyo.css"/>
     <link rel="stylesheet" href="/static/assets/vendor/css/pages/ui-carousel.css"/>
 
+    <link rel="stylesheet" href="/static/assets/css/persian-datepicker.min.css"/>
+
+
 {% endblock %}
 {% block style %}{% endblock %}
 
@@ -45,35 +48,35 @@
                 <section class="col-12 col-sm-12">
 
                     <div class="card mb-4 col-sm-12 ">
-                        <div class="card-body row ">
+                        <div class="card-body row  pt-3 pb-2 px-4 d-flex justify-content-around">
 
 
                             <div class="col-12 col-sm-2  col-lg-3 mb-4">
-                                <select class="form-select" id="exampleFormControlSelect1"
+                                <select class="form-select" id="location"
                                         aria-label="Default select example">
                                     <option selected="">مقصد سفر</option>
-                                    <option value="1">تهران</option>
-                                    <option value="2">مشهد</option>
-                                    <option value="3">اصفهان</option>
-                                    <option value="4">یزد</option>
-                                    <option value="5">شیراز</option>
-                                    <option value="6">بندعباس</option>
-                                    <option value="7">ساری</option>
+                                    {% for city in cities %}
+                                        <option value="{{ city.id }}"
+                                                {% if city.id == location %}selected{% endif %}>{{ city.name }}</option>
+
+                                    {% endfor %}
                                 </select>
                             </div>
 
                             <!-- Range Picker-->
                             <div class="col-12 col-sm-3  col-lg-3 mb-4">
 
-                                <input type="text" id="bs-datepicker-basic" placeholder="از تاریخ" class="form-control">
+                                <input type="text" id="dateIn" placeholder="از تاریخ"
+                                       class="form-control dateselector" value="{{ start_date }}">
                             </div>
                             <div class="col-12 col-sm-3  col-lg-3 mb-4">
-                                <input type="text" id="bs-datepicker-basic" placeholder="تا تاریخ" class="form-control">
+                                <input type="text" id="dateOut" placeholder="تا تاریخ"
+                                       class="form-control dateselector" value="{{ end_date }}">
                             </div>
 
                             <!-- /Range Picker-->
                             <div class="col-12 col-sm-2 col-lg-2 text-center">
-                                <button type="button"
+                                <button type="button" id="hotel_btn"
                                         class="btn btn-primary waves-effect waves-light col-12 col-sm-12 col-md-12 ">
                                     جست‌وجو
                                 </button>
@@ -101,14 +104,7 @@
                                     <h5>آدرس {{ hotel.name }}</h5>
                                     <p>{{ hotel.address }}</p>
                                 </div>
-                                <div class="col-12 col-sm-5">
-                                    <div class="card icon-card cursor-pointer text-center mb-4 mx-2">
-                                        <div class="card-body">
-                                            <i class="ti ti-brand-javascript mb-2"></i>
-                                            <p class="icon-name text-capitalize text-truncate mb-0">آدرس نقشه</p>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
 
@@ -120,26 +116,11 @@
                             <div id="swiper-gallery">
                                 <div class="swiper gallery-top">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/2.jpg)">
-                                            Slide 1
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/1.jpg)">
-                                            Slide 2
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/3.jpg)">
-                                            Slide 3
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/4.jpg)">
-                                            Slide 4
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/6.jpg)">
-                                            Slide 5
-                                        </div>
+                                        {% for img in gallery %}
+                                            <div class="swiper-slide"
+                                                 style="background-image: url(/media/{{ img.image }})">
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                     <!-- Add Arrows -->
                                     <div class="swiper-button-next swiper-button-white"></div>
@@ -147,26 +128,11 @@
                                 </div>
                                 <div class="swiper gallery-thumbs">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/2.jpg)">
-                                            Slide 1
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/1.jpg)">
-                                            Slide 2
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/3.jpg)">
-                                            Slide 3
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/4.jpg)">
-                                            Slide 4
-                                        </div>
-                                        <div class="swiper-slide"
-                                             style="background-image: url(/static/assets/img/backgrounds/6.jpg)">
-                                            Slide 5
-                                        </div>
+                                        {% for img in gallery %}
+                                            <div class="swiper-slide"
+                                                 style="background-image: url(/media/{{ img.image }})">
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -262,41 +228,45 @@
 
                                     <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
-                        <span class="count pe-1 me-1">
-                          <span>برای</span>
-                          <span id="hotel-book-night">10 </span>
-
-                          شب
-
-                        </span>
+                                        <span class="count pe-1 me-1">
+                                          <span>برای</span>
+                                          <span id="hotel-book-night">{{ date_interval }} </span>
+                                            <span>شب</span>
+                                        </span>
                                         <div class="price-box">
 
                                             <div class="total text-nowrap ">
-                                                <meta itemprop="name" content="چهار تخته بالکن دار">
+                                                <meta itemprop="name" content="تک تخته بالکن دار">
 
-                                                <span class="price span-prices" itemprop="lowPrice" content="
-                                    44000000
-                                    تومان
-                                ">
+                                                <span class="price span-prices" itemprop="lowPrice"
+                                                      content="{{ room.price }}تومان ">
 
-                              {{ room.price }}
+                                                  {{ room.price }}
 
-                            </span>
+                                                </span>
                                                 <span class="persian-currency">تومان</span>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
+                                        <button id="btn1{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <span class="mx-1">1</span>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
+                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <button id="btn2{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
+                                        <script>
+                                            let input = document.querySelector('#input{{ room.id }}');
+                                            document.querySelector('#btn1{{ room.id }}').addEventListener('click', function () {
+                                                input.stepUp();
+                                            });
+                                            document.querySelector('#btn2{{ room.id }}').addEventListener('click', function () {
+                                                input.stepDown();
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -379,41 +349,45 @@
 
                                     <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
-                        <span class="count pe-1 me-1">
-                          <span>برای</span>
-                          <span id="hotel-book-night">10 </span>
-
-                          شب
-
-                        </span>
+                                        <span class="count pe-1 me-1">
+                                          <span>برای</span>
+                                          <span id="hotel-book-night">{{ date_interval }} </span>
+                                            <span>شب</span>
+                                        </span>
                                         <div class="price-box">
 
                                             <div class="total text-nowrap ">
-                                                <meta itemprop="name" content="چهار تخته بالکن دار">
+                                                <meta itemprop="name" content="تک تخته بالکن دار">
 
-                                                <span class="price span-prices" itemprop="lowPrice" content="
-                                    44000000
-                                    تومان
-                                ">
+                                                <span class="price span-prices" itemprop="lowPrice"
+                                                      content="{{ room.price }}تومان ">
 
-                              44,000,000
+                                                  {{ room.price }}
 
-                            </span>
+                                                </span>
                                                 <span class="persian-currency">تومان</span>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
+                                        <button id="btn1{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <span class="mx-1">1</span>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
+                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <button id="btn2{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
+                                        <script>
+                                            let input = document.querySelector('#input{{ room.id }}');
+                                            document.querySelector('#btn1{{ room.id }}').addEventListener('click', function () {
+                                                input.stepUp();
+                                            });
+                                            document.querySelector('#btn2{{ room.id }}').addEventListener('click', function () {
+                                                input.stepDown();
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -496,41 +470,45 @@
 
                                     <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
-                        <span class="count pe-1 me-1">
-                          <span>برای</span>
-                          <span id="hotel-book-night">10 </span>
-
-                          شب
-
-                        </span>
+                                        <span class="count pe-1 me-1">
+                                          <span>برای</span>
+                                          <span id="hotel-book-night">{{ date_interval }} </span>
+                                            <span>شب</span>
+                                        </span>
                                         <div class="price-box">
 
                                             <div class="total text-nowrap ">
-                                                <meta itemprop="name" content="چهار تخته بالکن دار">
+                                                <meta itemprop="name" content="تک تخته بالکن دار">
 
-                                                <span class="price span-prices" itemprop="lowPrice" content="
-                                    44000000
-                                    تومان
-                                ">
+                                                <span class="price span-prices" itemprop="lowPrice"
+                                                      content="{{ room.price }}تومان ">
 
-                              44,000,000
+                                                  {{ room.price }}
 
-                            </span>
+                                                </span>
                                                 <span class="persian-currency">تومان</span>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
+                                        <button id="btn1{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <span class="mx-1">1</span>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
+                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <button id="btn2{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
+                                        <script>
+                                            let input = document.querySelector('#input{{ room.id }}');
+                                            document.querySelector('#btn1{{ room.id }}').addEventListener('click', function () {
+                                                input.stepUp();
+                                            });
+                                            document.querySelector('#btn2{{ room.id }}').addEventListener('click', function () {
+                                                input.stepDown();
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -550,7 +528,7 @@
                         {% elif room.room_Type == '4' %}
                             <div class="col-12 col-sm-12 card mb-3">
                                 <div class="border-bottom">
-                                    <h4 class="ps-2 pt-2">سه تخته</h4>
+                                    <h4 class="ps-2 pt-2">چهار تخته</h4>
                                 </div>
                                 <div class="row d-flex justify-content-around">
 
@@ -613,41 +591,45 @@
 
                                     <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
-                        <span class="count pe-1 me-1">
-                          <span>برای</span>
-                          <span id="hotel-book-night">10 </span>
-
-                          شب
-
-                        </span>
+                                        <span class="count pe-1 me-1">
+                                          <span>برای</span>
+                                          <span id="hotel-book-night">{{ date_interval }} </span>
+                                            <span>شب</span>
+                                        </span>
                                         <div class="price-box">
 
                                             <div class="total text-nowrap ">
-                                                <meta itemprop="name" content="چهار تخته بالکن دار">
+                                                <meta itemprop="name" content="تک تخته بالکن دار">
 
-                                                <span class="price span-prices" itemprop="lowPrice" content="
-                                    44000000
-                                    تومان
-                                ">
+                                                <span class="price span-prices" itemprop="lowPrice"
+                                                      content="{{ room.price }}تومان ">
 
-                              44,000,000
+                                                  {{ room.price }}
 
-                            </span>
+                                                </span>
                                                 <span class="persian-currency">تومان</span>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
+                                        <button id="btn1{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <span class="mx-1">1</span>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
+                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <button id="btn2{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
+                                        <script>
+                                            let input = document.querySelector('#input{{ room.id }}');
+                                            document.querySelector('#btn1{{ room.id }}').addEventListener('click', function () {
+                                                input.stepUp();
+                                            });
+                                            document.querySelector('#btn2{{ room.id }}').addEventListener('click', function () {
+                                                input.stepDown();
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -667,7 +649,7 @@
                         {% elif room.room_Type == '5' %}
                             <div class="col-12 col-sm-12 card mb-3">
                                 <div class="border-bottom">
-                                    <h4 class="ps-2 pt-2">سه تخته</h4>
+                                    <h4 class="ps-2 pt-2">پنج تخته</h4>
                                 </div>
                                 <div class="row d-flex justify-content-around">
 
@@ -730,41 +712,45 @@
 
                                     <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
-                        <span class="count pe-1 me-1">
-                          <span>برای</span>
-                          <span id="hotel-book-night">10 </span>
-
-                          شب
-
-                        </span>
+                                        <span class="count pe-1 me-1">
+                                          <span>برای</span>
+                                          <span id="hotel-book-night">{{ date_interval }} </span>
+                                            <span>شب</span>
+                                        </span>
                                         <div class="price-box">
 
                                             <div class="total text-nowrap ">
-                                                <meta itemprop="name" content="چهار تخته بالکن دار">
+                                                <meta itemprop="name" content="تک تخته بالکن دار">
 
-                                                <span class="price span-prices" itemprop="lowPrice" content="
-                                    44000000
-                                    تومان
-                                ">
+                                                <span class="price span-prices" itemprop="lowPrice"
+                                                      content="{{ room.price }}تومان ">
 
-                              44,000,000
+                                                  {{ room.price }}
 
-                            </span>
+                                                </span>
                                                 <span class="persian-currency">تومان</span>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
+                                        <button id="btn1{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <span class="mx-1">1</span>
-                                        <button class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
+                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <button id="btn2{{ room.id }}"
+                                                class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
+                                        <script>
+                                            let input = document.querySelector('#input{{ room.id }}');
+                                            document.querySelector('#btn1{{ room.id }}').addEventListener('click', function () {
+                                                input.stepUp();
+                                            });
+                                            document.querySelector('#btn2{{ room.id }}').addEventListener('click', function () {
+                                                input.stepDown();
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -833,4 +819,32 @@
     <script src="/static/assets/js/forms-typeahead.js"></script>
 
     <script src="/static/assets/js/ui-carousel.js"></script>
+
+    <script src="/static/assets/js/persian-datepicker.min.js"></script>
+    <script src="/static/assets/js/persian-date.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dateselector").persianDatepicker({
+                observer: true,
+                format: 'YYYY-MM-DD',
+                altField: '.observer-example-alt',
+                initialValue: false
+
+
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#hotel_btn').click(function () {
+                let selectBoxValue = $('#location').val();
+                let date1Value = $('#dateIn').val();
+                let date2Value = $('#dateOut').val();
+                let url = '?location=' + selectBoxValue + '&start_date=' + date1Value + '&end_date=' + date2Value;
+                window.location.href = '{% url 'hotels' %}' + url;
+
+            });
+        });
+    </script>
 {% endblock %}

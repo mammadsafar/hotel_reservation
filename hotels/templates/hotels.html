@@ -31,11 +31,12 @@
 
 
                                 <div class="col-12 col-sm-2  col-lg-3 mb-4">
-                                    <select class="form-select" id="exampleFormControlSelect1"
+                                    <select class="form-select" id="location"
                                             aria-label="Default select example">
                                         <option selected="">مقصد سفر</option>
                                         {% for city in cities %}
-                                            <option value="{{ city.id }}">{{ city }}</option>
+                                            <option value="{{ city.id }}" {% if city.id == location %}selected{% endif %}>{{ city.name }}</option>
+
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -43,17 +44,17 @@
                                 <!-- Range Picker-->
                                 <div class="col-12 col-sm-3  col-lg-3 mb-4">
 
-                                    <input type="text" id="bs-datepicker-basic" placeholder="از تاریخ"
-                                           class="form-control dateselector">
+                                    <input type="text" id="dateIn" placeholder="از تاریخ"
+                                           class="form-control dateselector" value="{{ start_date }}">
                                 </div>
                                 <div class="col-12 col-sm-3  col-lg-3 mb-4">
-                                    <input type="text" id="bs-datepicker-basic" placeholder="تا تاریخ"
-                                           class="form-control dateselector">
+                                    <input type="text" id="dateOut" placeholder="تا تاریخ"
+                                           class="form-control dateselector" value="{{ end_date }}">
                                 </div>
 
                                 <!-- /Range Picker-->
                                 <div class="col-12 col-sm-2 col-lg-2 text-center">
-                                    <button type="button"
+                                    <button type="button" id="hotel_btn"
                                             class="btn btn-primary waves-effect waves-light col-12 col-sm-12 col-md-12 ">
                                         جست‌وجو
                                     </button>
@@ -158,34 +159,34 @@
                                                 <div class="row g-0">
                                                     <div class="col-md-3">
                                                         <img class="card-img card-img-left rounded"
-                                                             src="/media/{{ hotel.cover }}"
+                                                             src="/media/{{ hotel.hotel.cover }}"
                                                              alt="Card image">
                                                     </div>
                                                     <div class="col-md-9 row">
 
                                                         <div class="col-12 col-sm-3 card-body ">
-                                                            <h5 class="card-title">{{ hotel.name }}</h5>
+                                                            <h5 class="card-title">{{ hotel.hotel.name }}</h5>
                                                             <div class="read-only-ratings jq-ry-container">
-                                                               هتل {{ hotel.class_hotel }} ستاره
+                                                               هتل {{ hotel.hotel.class_hotel }} ستاره
 {#                                                                {% for i in hotel.class_hotel | int %}#}
 {#                                                                    ⭐#}
 {#                                                                {% endfor %}#}
                                                             </div>
                                                             <p class="card-text">
-                                                                {{ hotel.address }}
+                                                                {{ hotel.hotel.address }}
                                                             </p>
                                                             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                                                         </div>
                                                         <div class="col-12 col-sm-4 d-flex flex-column align-items-center p-3 border-left ">
                                                             <div class="col text-center mt-0 mt-md-5 mb-3">
-                                                                قیمت از 1230000 تومان
+                                                                قیمت از {{ hotel.price }} تومان
                                                             </div>
                                                             <div class="col text-center mb-2">
-                                                                <button type="button"
+                                                                <a href="{% url 'hotel_details' hotel.hotel.id %}{{ last_url }}"
                                                                         class="btn btn-primary waves-effect waves-light">
                                                                     انتخاب
                                                                     اتاق
-                                                                </button>
+                                                                </a>
                                                             </div>
 
                                                         </div>
@@ -359,6 +360,18 @@
                 altField: '.observer-example-alt',
                 initialValue: false
 
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#hotel_btn').click(function () {
+                let selectBoxValue = $('#location').val();
+                let date1Value = $('#dateIn').val();
+                let date2Value = $('#dateOut').val();
+                let url = '?location=' + selectBoxValue + '&start_date=' + date1Value + '&end_date=' + date2Value;
+                window.location.href = '{% url 'hotels' %}' + url;
 
             });
         });

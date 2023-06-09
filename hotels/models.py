@@ -41,6 +41,11 @@ class City(models.Model):
         ('YA', 'یزد'),
         ('ZA', 'رنجان')
     )
+    STATUS_CHOICES = (
+        ('yes', 'فعال'),
+        ('no', 'غیرفعال'),
+    )
+    status = models.CharField(verbose_name='وضعیت', choices=STATUS_CHOICES, max_length=3)
     state = models.CharField(verbose_name='استان', choices=STATES_CHOICES, max_length=2)
     city = models.CharField(verbose_name='شهر', max_length=200)
     created_at = models.DateTimeField(verbose_name='تاریخ ایجاد', auto_now_add=True)
