@@ -1,0 +1,96 @@
+{% extends '_base.html' %}
+
+
+{% block title %}
+    Add New Post
+{% endblock %}
+
+
+
+{% block style %}
+
+    <link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/forms/select/select2.min.css">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+        <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="row">
+                <div class="col-12 col-xs-12 row">
+
+
+            <div class="content-body">
+                <section id="input-group-basic">
+                    <div class="row">
+                        <!-- Basic -->
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">پست جدید</h4>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" enctype="multipart/form-data" class="row">
+                                        {% csrf_token %}
+
+                                        {{ form.non_field_errors }}
+
+                                        <div class="col-6">
+                                            <label class="form-label" for="post_title">موضوع</label>
+                                            <div class="input-group form-password-toggle mb-2">
+                                                {{ form.title }}
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" for="post_title">متن</label>
+                                            <div class="input-group form-password-toggle mb-2">
+                                                {{ form.text }}
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" for="post_title">وضعیت</label>
+                                            <div class="input-group form-password-toggle mb-2">
+                                                {{ form.status }}
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" for="post_title">تصویر نمایه</label>
+                                            <div class="input-group form-password-toggle mb-2">
+                                                {{ form.thumbnail }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="input-group form-password-toggle mb-2">
+                                                <button type="submit" class="form-control" id="post_title">ذخیره</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <script src="/static/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+
+    <script src="/static/app-assets/js/scripts/forms/form-select2.js"></script>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+
+
+{% block title %}
+    پاک کردن مقاله
+{% endblock %}
+
+
+
+{% block style %}
+
+
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container-xxl d-flex align-items-stretch flex-grow-1 p-0">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="row">
+                <div class="col-12 col-xs-12 row">
+
+                    <div class="card p-4">
+                        <h1>مطمعن هستید؟</h1>
+                        <p>آیا از پاک کردن مقاله {{ post.title }} به طور کامل مطمعن هستید</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="بله، حذف شود" class="btn btn-gradient-danger">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+
+{% endblock %}
