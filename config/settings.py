@@ -1,6 +1,12 @@
 from pathlib import Path
 import os
 
+
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,12 +15,12 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fadskjfq432q52435l435o32543%$@#%4543nkdjsf'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['zohagasht.com','*']
 
 # Application definition
 
@@ -83,11 +89,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ.get("NAME"),
-#         'USER': os.environ.get("USER"),
-#         'PASSWORD': os.environ.get("PASSWORD"),
-#         'HOST': os.environ.get("HOST"),
-#         'PORT': os.environ.get("PORT"),
+#         'NAME': env('NAME')
+#         'USER': env('USER')
+#         'PASSWORD': env('PASSWORD')
+#         'HOST': env('HOST')
+#         'PORT': env('PORT')
 #     }
 # }
 
@@ -150,7 +156,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Static files config
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [str(BASE_DIR.joinpath('config/static'))]
+# STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [ BASE_DIR / "static"]
 
 # Media files config
 
