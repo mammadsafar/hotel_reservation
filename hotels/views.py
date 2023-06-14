@@ -1,3 +1,4 @@
+import jdatetime
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.core.paginator import Paginator
 
@@ -70,16 +71,25 @@ def hotels_view(request):
     #     print(e)
 
 
-def hotel_details(request, pk):
+def hotel_detailss(request, pk):
     try:
         data = dict()
         data['location'] = request.GET.get('location', '')
         data['start_date'] = request.GET.get('start_date', '')
         data['end_date'] = request.GET.get('end_date', '')
+
+        if not data['start_date']:
+            data['start_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d')
+        if not data['end_date']:
+            data['end_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d')
+        # اگه تاریخ خراب بود بره توی صفحه تاریخ خراب
+        if helper.check_dates(helper.ptg(data['start_date']), helper.ptg(data['end_date'])):
+            data['start_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d')
+            data['end_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d')
+            # return render(request, 'hotel_details.html', data)
+
         data['cities'] = get_cities()
         data['date_interval'] = helper.date_interval(helper.ptg(data['start_date']), helper.ptg(data['end_date']))
-        if helper.check_dates(helper.ptg(data['start_date']), helper.ptg(data['end_date'])):
-            return render(request, 'hotel_details.html', data)
 
         data['hotel'] = Hotel.objects.filter(id=pk, status='yes').first()
         data['gallery'] = Gallery.objects.filter(hotel=pk)
@@ -97,6 +107,44 @@ def hotel_details(request, pk):
                 'extra_bed': i.extra_bed,
             }
             data['rooms'].append(temp)
+
+        return render(request, 'hotel_details.html', data)
+    except Exception as e:
+        print(e)
+
+
+def hotel_details(request, pk):
+    try:
+        data = {
+            'location': request.GET.get('location', ''),
+            'start_date': request.GET.get('start_date', ''),
+            'end_date': request.GET.get('end_date', '')
+        }
+
+        data['start_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d') if not data['start_date'] else data['start_date']
+        data['end_date'] = jdatetime.datetime.now().strftime('%Y-%m-%d') if not data['end_date'] else data['end_date']
+
+        if helper.check_dates(helper.ptg(data['start_date']), helper.ptg(data['end_date'])):
+            data.update({'wrong_date_selected': True})
+            # return render(request, 'hotel_details.html', data)
+        data.update({'date_interval': helper.date_interval(helper.ptg(data['start_date']), helper.ptg(data['end_date']))})
+        data.update({
+            'cities': get_cities(),
+            'hotel': Hotel.objects.filter(id=pk, status='yes').first(),
+            'gallery': Gallery.objects.filter(hotel=pk),
+            'rooms': [
+                {
+                    'id': i.id,
+                    'hotel': i.hotel,
+                    'room_Type': i.room_Type,
+                    'capacity': i.capacity,
+                    'price': int(i.price) * int(data['date_interval']),
+                    'status': i.status,
+                    'breakfast': i.breakfast,
+                    'extra_bed': i.extra_bed,
+                } for i in Room.objects.filter(hotel=pk, status='yes')
+            ]
+        })
 
         return render(request, 'hotel_details.html', data)
     except Exception as e:

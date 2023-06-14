@@ -218,43 +218,49 @@
                                     <div data-i18n="خانه">خانه</div>
                                 </a>
                             </li>
-                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">
-                                <a href="{% url 'home' %}" class="menu-link">
-                                    <i class="fa-regular fa-house-laptop px-2"></i>
+                            <li class="menu-item {% if request.resolver_match.url_name == 'hotels' %} active{% endif %}">
+                                <a href="{% url 'hotels' %}" class="menu-link">
+                                    <i class="menu-icon tf-icons ti ti-home"></i>
                                     <div data-i18n="هتل ها">هتل ها</div>
                                 </a>
                             </li>
-                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">
-                                <a href="{% url 'home' %}" class="menu-link">
-                                    <i class="fa-regular fa-file-lines px-2"></i>
-                                    <div data-i18n="اطلاعات هتل">اطلاعات هتل</div>
+                            <li class="menu-item {% if request.resolver_match.url_name == 'post_list' %} active{% endif %}">
+                                <a href="{% url 'post_list' %}" class="menu-link">
+                                    <i class="menu-icon tf-icons ti ti-note"></i>
+                                    <div data-i18n="وبلاگ">وبلاگ</div>
                                 </a>
                             </li>
-                            </li>
-                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">
-                                <a href="{% url 'home' %}" class="menu-link">
-                                    <i class="fa-regular fa-pen-to-square px-2"></i>
-                                    <div data-i18n="رزرو کردن">رزرو کردن</div>
-                                </a>
-                            </li>
-                            </li>
-                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">
-                                <a href="{% url 'home' %}" class="menu-link">
-                                    <i class="fa-regular fa-badge-check"></i>
-                                    <div data-i18n="تایید رزرو">تایید رزرو</div>
-                                </a>
-                            </li>
-                            </li>
-                            <li class="menu-item {% if request.resolver_match.url_name == 'profile' %} active{% endif %}">
-                                <a href="{% url 'profile' %}" class="menu-link">
-                                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                                    <div data-i18n="پروفایل">پروفایل</div>
-                                </a>
-                            </li>
-                            </li>
+{#                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">#}
+{#                                <a href="{% url 'home' %}" class="menu-link">#}
+{#                                    <i class="fa-regular fa-file-lines px-2"></i>#}
+{#                                    <div data-i18n="اطلاعات هتل">اطلاعات هتل</div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            </li>#}
+{#                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">#}
+{#                                <a href="{% url 'home' %}" class="menu-link">#}
+{#                                    <i class="fa-regular fa-pen-to-square px-2"></i>#}
+{#                                    <div data-i18n="رزرو کردن">رزرو کردن</div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            </li>#}
+{#                            <li class="menu-item {% if request.resolver_match.url_name == 'home' %} active{% endif %}">#}
+{#                                <a href="{% url 'home' %}" class="menu-link">#}
+{#                                    <i class="fa-regular fa-badge-check"></i>#}
+{#                                    <div data-i18n="تایید رزرو">تایید رزرو</div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            </li>#}
+{#                            <li class="menu-item {% if request.resolver_match.url_name == 'profile' %} active{% endif %}">#}
+{#                                <a href="{% url 'profile' %}" class="menu-link">#}
+{#                                    <i class="menu-icon tf-icons ti ti-smart-home"></i>#}
+{#                                    <div data-i18n="پروفایل">پروفایل</div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            </li>#}
                             <li class="menu-item {% if request.resolver_match.url_name == 'about' %} active{% endif %}">
                                 <a href="{% url 'about' %}" class="menu-link">
-                                    <i class="fa-regular fa-file-user"></i>
+                                    <i class="menu-icon tf-icons ti ti-users"></i>
                                     <div data-i18n="درباره ما">درباره ما</div>
                                 </a>
                             </li>
@@ -276,7 +282,7 @@
                     <section class="card p-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="col-5">پشتیبانی ۲۴ ساعته و ۷ روز هفته</h3>
-                            <p class="col-2">099 999 9999</p>
+                            <p class="col-5 text-end">099-999-9999</p>
                         </div>
                         <div class="divider text-end mt-1 mb-3">
                             <div class="divider-text">
@@ -302,13 +308,13 @@
                             <div class="col-3">
                                 <h4>اطلاعات بیشتر</h4>
                                 <div class="list-group list-group-flush">
-                                    <a href="javascript:void(0);" class="list-group-item list-group-item-action">تماس
+                                    <a href="{% url 'about' %}" class="list-group-item list-group-item-action">تماس
                                         باما</a>
-                                    <a href="javascript:void(0);" class="list-group-item list-group-item-action">سوالات
+                                    <a href="{% url 'about' %}" class="list-group-item list-group-item-action">سوالات
                                         متداول</a>
-                                    <a href="javascript:void(0);" class="list-group-item list-group-item-action">قوانین
+                                    <a href="{% url 'about' %}" class="list-group-item list-group-item-action">قوانین
                                         و مقررات</a>
-                                    <a href="javascript:void(0);"
+                                    <a href="{% url 'post_list' %}"
                                        class="list-group-item list-group-item-action">وبلاگ</a>
                                 </div>
                             </div>

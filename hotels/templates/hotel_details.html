@@ -46,7 +46,9 @@
             <div class="row">
 
                 <section class="col-12 col-sm-12">
-
+                    {% if wrong_date_selected %}
+                        <div class="alert alert-danger" role="alert">!!!بازه زمانی انتخابی اشتباه است. تاریخ شروع و پایان باید از امروز به بعد باشد</div>
+                    {% endif %}
                     <div class="card mb-4 col-sm-12 ">
                         <div class="card-body row  pt-3 pb-2 px-4 d-flex justify-content-around">
 
@@ -225,7 +227,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-8 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
+                                    <div class="col-6 col-sm-8 col-md-3 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <span class="count pe-1 me-1">
                                           <span>برای</span>
@@ -247,13 +249,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
+                                    <div class="col-6 col-sm-4 col-md-2 mb-2 border-end  d-flex justify-content-center align-items-center">
 
                                         <label class="text-nowrap text-center">تعداد اتاق</label>
                                         <button id="btn1{{ room.id }}"
                                                 class="btn btn-sm btn-icon btn-primary waves-effect waves-light "><i
                                                 class="fa-solid fa-plus"></i></button>
-                                        <input id="input{{ room.id }}" type="number" value="1" min="1" max="5">
+                                        <input id="input{{ room.id }}"  readonly class="form-control-plaintext"type="number" value="1" min="1" max="5">
                                         <button id="btn2{{ room.id }}"
                                                 class="btn btn-sm btn-icon btn-primary waves-effect waves-light"><i
                                                 class="fa-solid fa-minus"></i></button>
@@ -812,6 +814,8 @@
 {% endblock %}
 {% block main_script %}{% endblock %}
 {% block page_script %}
+
+
     <script src="/static/assets/js/forms-pickers.js"></script>
     <script src="/static/assets/js/forms-selects.js"></script>
     <script src="/static/assets/js/forms-tagify.js"></script>
