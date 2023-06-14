@@ -89,11 +89,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': env('NAME'),
-#         'USER': env('USER'),
-#         'PASSWORD': env('PASSWORD'),
-#         'HOST': env('HOST'),
-#         'PORT': env('PORT'),
+#         'NAME': 'zohagash_django',
+#         'USER': 'zohagash_django',
+#         'PASSWORD': 'iL8Q,Wh[Liis',
+#         'HOST':'localhost',
+#         'PORT': 3306,
 #     }
 # }
 
