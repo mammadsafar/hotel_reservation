@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     otp_create_time = models.DateTimeField(auto_now=True)
 
     date_of_birth = models.DateField(null=True, blank=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, default=f'{BASE_DIR}\media\\avatars\default.png')
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, default='/media/avatars/default.png')
     gender = models.CharField(max_length=20, choices=MY_CHOICES)
 
     objects = MyUserManager()

@@ -87,9 +87,11 @@ def verify(request):
     except CustomUser.DoesNotExist:
         return HttpResponseRedirect(reverse('register_view'))
 
-@login_required(login_url="/accounts/register/")
+# @login_required(login_url="/accounts/register/")
 def ProfileView(request):
     try:
+        if not request.user.is_authenticated:
+            return reverse('register_view')
         phone_number = request.session.get('user_mobile')
         user = CustomUser.objects.get(phone_number=phone_number)
         form = forms.CustomUserChangeForm
