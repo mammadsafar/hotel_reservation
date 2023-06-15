@@ -52,7 +52,8 @@ def send_otp_soap(mobile, otp):
 
 
 def get_random_otp():
-    return randint(1000, 9999)
+    return 1234
+    # return randint(1000, 9999)
 
 
 def check_otp_expiration(mobile):
